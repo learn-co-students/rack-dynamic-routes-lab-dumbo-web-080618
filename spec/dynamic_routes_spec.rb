@@ -1,3 +1,4 @@
+require 'pry'
 require_relative './spec_helper'
 
 describe "Shopping Cart Rack App" do
@@ -14,9 +15,11 @@ describe "Shopping Cart Rack App" do
 
     it 'Returns item price if it is in @@item' do
       Application.class_variable_set(:@@items, [Item.new("Figs",3.42),Item.new("Pears",0.99)])
+
       get '/items/Figs'
       expect(last_response.body).to include("3.42")
       expect(last_response.status).to be(200)
+      # binding.pry
     end
 
     it 'Returns an error and 400 if the item is not there' do
